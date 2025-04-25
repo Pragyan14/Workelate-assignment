@@ -27,4 +27,22 @@ const createReview = asyncHandler(async (req, res) => {
     )
 })
 
-export { createReview };
+const getReview = asyncHandler(async(req,res) => {
+    const bookId = req.params.bookId;
+
+    if(!bookId){
+        throw ApiError(400,'Book id required')
+    }
+
+    const review = await Review.find({bookId: bookId})
+
+    if(!review){
+        throw ApiError(400,'Error in getting review')
+    }
+
+    return res.status(201).json(
+        new ApiResponse(200, review, "Reviews are here")
+    )
+})
+
+export { createReview,getReview };
