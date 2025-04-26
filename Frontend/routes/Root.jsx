@@ -7,7 +7,7 @@ export default function Root(){
     return(
         <>
         <Header/>
-        <div className={"bg-[#111827] px-18"}>
+        <div className={"bg-[#111827]"}>
             <Outlet/>
         </div>
         <Footer/>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import BookCard from "../../components/BookCard";
 import axios from 'axios'
-import { useLoaderData} from 'react-router-dom';
+import { useLoaderData,useSearchParams, useNavigate} from 'react-router-dom';
 
 export const booksLoader = async ({ request }) => {
 
@@ -24,6 +24,18 @@ export const booksLoader = async ({ request }) => {
 export default function Books() {
  
     const data = useLoaderData()
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const page = searchParams.get('page');
+        const limit = searchParams.get('limit');
+
+        if (!page || !limit) {
+            navigate('/books?page=1&limit=4', { replace: true });
+        }
+    }, [searchParams, navigate]);
+
     const books = data.data.books;
 
     return (
