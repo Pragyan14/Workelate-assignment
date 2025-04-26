@@ -54,7 +54,7 @@ const addBook = asyncHandler(async (req, res) => {
     const { title, author, description } = req.body;
 
     const newBook = await Book.create({
-        title,
+        title: title.toUpperCase(),
         author,
         description
     })
